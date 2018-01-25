@@ -26,8 +26,8 @@ import cz.msebera.android.httpclient.Header;
 public class ContactosActivity extends AppCompatActivity {
     //public static final String WEB = "192.168.3.57/acceso/contactos.json";
     //public static final String WEB = "http://portadaalta.mobi/acceso/contactos.json";
-    //public static final String WEB = "https://alumno.mobi/~alumno/superior/casielles/contactos.json";
-    public static final String WEB = "http://192.168.0.139/acceso/contactos.json";
+    public static final String WEB = "https://alumno.mobi/~alumno/superior/casielles/contactos.json";
+    //public static final String WEB = "http://192.168.0.139/acceso/contactos.json";
     Button boton;
     ListView lista;
     ArrayList<Contacto> contactos;
