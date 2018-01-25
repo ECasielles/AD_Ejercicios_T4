@@ -1,7 +1,7 @@
 package com.example.usuario.ad_ejercicios_t4.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,7 +21,7 @@ public class ContactosGSONActivity extends AppCompatActivity {
     ListView lista;
     ArrayList<Contacto> contacts;
     ArrayAdapter<Contacto> adapter;
-    Persona person;
+    Contacto persona;
     Gson gson;
 
     @Override
@@ -43,5 +43,9 @@ public class ContactosGSONActivity extends AppCompatActivity {
     public void onClick(View v) {
         if (v == boton)
             descarga(WEB);
+    }
+
+    private void descarga(String web) {
+
     }
 }
