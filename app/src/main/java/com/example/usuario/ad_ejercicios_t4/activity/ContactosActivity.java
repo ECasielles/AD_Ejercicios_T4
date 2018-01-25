@@ -1,8 +1,8 @@
 package com.example.usuario.ad_ejercicios_t4.activity;
 
 import android.app.ProgressDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,14 +12,22 @@ import android.widget.Toast;
 
 import com.example.usuario.ad_ejercicios_t4.R;
 import com.example.usuario.ad_ejercicios_t4.model.Contacto;
+import com.example.usuario.ad_ejercicios_t4.util.AnalisisJSON;
 import com.example.usuario.ad_ejercicios_t4.util.RestClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
+import cz.msebera.android.httpclient.Header;
+
 public class ContactosActivity extends AppCompatActivity {
-    //public static final String WEB = "http://192.168.1.20/acceso/contactos.json";
-    public static final String WEB = "https://www.portadaalta.mobi/acceso/superior/casielles/contactos.json";
+    //public static final String WEB = "192.168.3.57/acceso/contactos.json";
+    //public static final String WEB = "http://portadaalta.mobi/acceso/contactos.json";
+    //public static final String WEB = "https://alumno.mobi/~alumno/superior/casielles/contactos.json";
+    public static final String WEB = "http://192.168.0.139/acceso/contactos.json";
     Button boton;
     ListView lista;
     ArrayList<Contacto> contactos;
@@ -41,6 +49,12 @@ public class ContactosActivity extends AppCompatActivity {
                 ).show();
             }
         });
+        boton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                descarga(WEB);
+            }
+        });
     }
 
     //usar JsonHttpResponseHandler()
@@ -56,17 +70,32 @@ public class ContactosActivity extends AppCompatActivity {
                 progreso.show();
             }
 
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                progreso.dismiss();
+                try {
+                    contactos = AnalisisJSON.analizarContactos(response);
+                    Toast.makeText(ContactosActivity.this, "Descarga con éxito", Toast.LENGTH_SHORT).show();
+                    mostrar();
+                } catch (JSONException e) {
+                    Toast.makeText(ContactosActivity.this,
+                            "Error en el documento: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
 
-
-
-
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                progreso.dismiss();
+            }
         });
     }
 
     private void mostrar() {
         if (contactos != null)
             if (adapter == null) {
-                adapter = new ArrayAdapter<Contacto>(this, android.R.layout. simple_list_item_1 , contactos);
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, contactos);
                 lista.setAdapter(adapter);
             } else {
                 adapter.clear();
