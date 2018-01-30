@@ -9,10 +9,10 @@ import com.loopj.android.http.RequestParams;
 public class RestClient {
     private static final String BASE_URL = "";
     //Según Paco: tiempo de espera contra servidor local
-    private static final int MAX_TIMEOUT = 2000;
-    private static final int RETRIES = 3;
+    private static final int MAX_TIMEOUT = 1000;
+    private static final int RETRIES = 0;
     //Según Paco: tiempo de espera contra servidor remoto
-    private static final int TIMEOUT_BETWEEN_RETRIES = 5000;
+    private static final int TIMEOUT_BETWEEN_RETRIES = 1000;
     private static AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
     public static void get(String url, AsyncHttpResponseHandler responseHandler) {
         client.setTimeout(MAX_TIMEOUT);

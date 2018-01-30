@@ -24,9 +24,12 @@ import java.util.ArrayList;
 import cz.msebera.android.httpclient.Header;
 
 public class ContactosActivity extends AppCompatActivity {
-    //public static final String WEB = "192.168.3.57/acceso/contactos.json";
-    //public static final String WEB = "http://portadaalta.mobi/acceso/contactos.json";
-    public static final String WEB = "https://alumno.mobi/~alumno/superior/casielles/contactos.json";
+
+    //Podemos comprobar el contenido del JSON usando curl
+
+    //public static final String WEB = "http://192.168.3.57/acceso/contactos.json";
+    public static final String WEB = "https://portadaalta.mobi/acceso/contactos.json";
+    //public static final String WEB = "https://alumno.mobi/~alumno/superior/casielles/contactos.json";
     //public static final String WEB = "http://192.168.0.139/acceso/contactos.json";
     Button boton;
     ListView lista;
@@ -57,7 +60,6 @@ public class ContactosActivity extends AppCompatActivity {
         });
     }
 
-    //usar JsonHttpResponseHandler()
     private void descarga(String web) {
         final ProgressDialog progreso = new ProgressDialog(this);
         RestClient.get(web, new JsonHttpResponseHandler() {
@@ -88,6 +90,8 @@ public class ContactosActivity extends AppCompatActivity {
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
                 progreso.dismiss();
+                Toast.makeText(ContactosActivity.this,
+                        "Error de conexión: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

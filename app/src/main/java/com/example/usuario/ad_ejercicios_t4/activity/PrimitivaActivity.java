@@ -3,12 +3,14 @@ package com.example.usuario.ad_ejercicios_t4.activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -27,7 +29,7 @@ public class PrimitivaActivity extends AppCompatActivity {
     //public static final String WEB = "192.168.3.57/acceso/primitiva.json";
     //public static final String WEB = "http://portadaalta.mobi/acceso/primitiva.json";
     //public static final String WEB = "https://alumno.mobi/~alumno/superior/casielles/primitiva.json";
-    public static final String WEB = "http://192.168.0.139/acceso/primitiva.json";
+    public static final String WEB = "http://192.168.0.131/acceso/primitiva.json";
 
     Button mButton;
     TextView mTextView;
@@ -67,8 +69,21 @@ public class PrimitivaActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        Toast.makeText(PrimitivaActivity.this,
-                                "Error en la descarga: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        //Es necesario comprobar que el objeto error no sea nulo.
+                        mTextView.setText(error.getMessage());
+                        NetworkResponse response = error.networkResponse;
+                        StringBuilder message = new StringBuilder();
+                        if (response != null && response.data != null)
+                            message.append("Error: ").append(response.statusCode);
+                        else {
+                            String errorMessage = error.getClass().getSimpleName();
+                            if (!TextUtils.isEmpty(errorMessage))
+                                message.append("Error: ").append(errorMessage);
+                            else
+                                message.append("Error en la conexión con Volley");
+                        }
+                        showMessage(message);
                     }
                 });
         // Set the tag on the request.
@@ -77,6 +92,10 @@ public class PrimitivaActivity extends AppCompatActivity {
         jsObjRequest.setRetryPolicy(new DefaultRetryPolicy(3000, 1, 1));
         // Add the request to the RequestQueue.
         mRequestQueue.add(jsObjRequest);
+    }
+
+    private void showMessage(StringBuilder message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
