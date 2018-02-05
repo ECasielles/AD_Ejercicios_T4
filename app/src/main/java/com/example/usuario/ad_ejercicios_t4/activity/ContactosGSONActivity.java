@@ -79,14 +79,30 @@ public class ContactosGSONActivity extends AppCompatActivity {
                     adapter.addAll(contacts);
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    mostrarMensaje(e.getLocalizedMessage());
                 }
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
                 progreso.dismiss();
+                StringBuilder mensaje = new StringBuilder();
+                mensaje.append("Fallo en la descarga: ").append(statusCode).append("/n");
+                if(throwable != null) {
+                    mensaje.append(throwable.getMessage());
+                    if (responseString != null)
+                        mensaje.append("/n").append(responseString);
+                }
+                mostrarMensaje(mensaje.toString());
             }
+
         });
+    }
+
+    private void mostrarMensaje(String mensaje) {
+        if(mensaje != null)
+            Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
     }
 
 }
