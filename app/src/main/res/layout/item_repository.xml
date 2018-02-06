@@ -1,31 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.usuario.ad_ejercicios_t4.activity.RetrofitActivity"
     >
 
-    <EditText
-        android:id="@+id/edittext"
+    <TextView
+        android:id="@+id/txvName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
 
-    <Button
-        android:id="@+id/boton"
+    <TextView
+        android:id="@+id/txvDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:text="Cargar"
         />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@android:id/list"
+    <TextView
+        android:id="@+id/txvCreatedAt"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         />
 
 </LinearLayout>
