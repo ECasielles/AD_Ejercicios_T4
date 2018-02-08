@@ -103,7 +103,7 @@ public class AnalisisJSON {
 
         //...
 
-        out.write(rss.toString(4)); //tabulación de 4 caracteres
+        //out.write(rss.toString(4)); //tabulación de 4 caracteres
         out.flush();
         out.close();
         Log.i("info", objeto.toString());

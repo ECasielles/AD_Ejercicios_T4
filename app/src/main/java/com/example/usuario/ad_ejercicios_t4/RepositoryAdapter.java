@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.usuario.ad_ejercicios_t4.model.Git;
+import com.example.usuario.ad_ejercicios_t4.model.Repository;
 
 import java.util.ArrayList;
 
@@ -16,14 +16,14 @@ import java.util.ArrayList;
 
 public class RepositoryAdapter extends RecyclerView.Adapter<RepositoryAdapter.ViewHolder> {
 
-    ArrayList<Git> repos;
+    ArrayList<Repository> repositories;
 
-    public RepositoryAdapter() {
-        this.repos = new ArrayList<>();
+    public RepositoryAdapter(ArrayList<Repository> repositories) {
+        this.repositories = repositories;
     }
 
-    public void setRepsitory(ArrayList<Git> repos) {
-        this.repos = repos;
+    public void setRepository(ArrayList<Repository> repositories) {
+        this.repositories = repositories;
         notifyDataSetChanged();
     }
 
@@ -36,18 +36,21 @@ public class RepositoryAdapter extends RecyclerView.Adapter<RepositoryAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.txvName.setText(repos.get(position).getName());
-        holder.txvDescription.setText(repos.get(position).getDescription().toString());
-        holder.txvCreatedAt.setText(repos.get(position).getCreatedAt());
+        holder.txvName.setText(repositories.get(position).getName());
+        holder.txvDescription.setText(repositories.get(position).getDescription().toString());
+        holder.txvCreatedAt.setText(repositories.get(position).getCreatedAt());
     }
 
     @Override
     public int getItemCount() {
-        return repos.size();
+        if (repositories != null)
+            return repositories.size();
+        else
+            return 0;
     }
 
-    public Git get(int position) {
-        return repos.get(position);
+    public Repository get(int position) {
+        return repositories.get(position);
     }
 
 

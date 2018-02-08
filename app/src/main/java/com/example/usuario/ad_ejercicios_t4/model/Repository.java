@@ -3,7 +3,7 @@ package com.example.usuario.ad_ejercicios_t4.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Git {
+public class Repository {
 
     @SerializedName("id")
     @Expose

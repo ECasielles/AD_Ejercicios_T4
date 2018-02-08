@@ -1,15 +1,18 @@
 package com.example.usuario.ad_ejercicios_t4.network;
 
 
-import com.example.usuario.ad_ejercicios_t4.model.Git;
+import com.example.usuario.ad_ejercicios_t4.model.Repository;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
+/**
+ * Es la ruta del Endpoint y también la llamada (api + consulta)
+ */
 public interface ApiService {
-    @GET("/users/{user}/repos")
-    Call<List<Git>> reposForUser(@Path("user") String user);
+    @GET("/users/{username}/repos")
+    Call<ArrayList<Repository>> listRepos(@Path("username") String username);
 }

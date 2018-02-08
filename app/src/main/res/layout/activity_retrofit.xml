@@ -9,9 +9,10 @@
     >
 
     <EditText
-        android:id="@+id/edittext"
+        android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="ECasielles"
         />
 
     <Button
